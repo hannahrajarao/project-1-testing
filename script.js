@@ -11,11 +11,11 @@ const options = {
     Authorization: `Basic ${authString}`,
   },
   body: JSON.stringify({
-    "style": "default",
+    "style": getInput('style'),
     "observer": {
-        "latitude": 40.735657,
-        "longitude": -74.172363,
-        "date": "2023-05-23"
+        "latitude": getInputInt('latitude'),
+        "longitude": getInputInt('longitude'),
+        "date": "2023-29-05"
     },
     "view": {
         "type": "area",
@@ -26,7 +26,7 @@ const options = {
                     "declination": 0
                 }
             },
-            "zoom": 1 //optional
+            "zoom": getInputInt('zoom')
         }
     }
     })
@@ -46,3 +46,10 @@ const data = fetch(url, options)
   })
   .catch((err) => console.error(err));
 
+  function getInput(parameter) {
+    return document.getElementById(parameter).value;
+  }
+  
+  function getInputInt(parameter) {
+    return parseInt(document.getElementById(parameter).value);
+  }

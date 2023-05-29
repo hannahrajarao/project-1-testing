@@ -4,6 +4,26 @@
         <title>Project 1</title>
     </head>
     <body>
+        <div>
+            <div>Enter coordinates:</div>
+            <label for="latitude">Latitude: </label>
+            <input type="text" value="40.712363" name="latitude" id="latitude">
+            <label for="longitude">Longitude: </label>
+            <input type="text" value="-74.172363" name="longitude" id="longitude">
+        </div>
+        <div>
+            <label for="zoom">Zoom: </label>
+            <input type="number" min="1" value="2" id="zoom" name="zoom">
+        </div>
+        <div>
+            <label for="style">Style:</label>
+            <select name="style" id="style">
+                <option value="default">Black</option>
+                <option value="inverted">White</option>
+                <option value="red">Red (Black Background)</option>
+                <option value="navy">Navy</option>
+            </select>
+        </div>
         <img src="" alt="" id="star-chart" style="border: 2px solid black">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="script.js"></script>
