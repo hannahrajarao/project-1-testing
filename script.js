@@ -4,39 +4,38 @@ const applicationSecret ="31acc37032ad69c4d5f7928586e995f9f30116465cf5dbc9669b23
 
 const authString = btoa(`${applicationId}:${applicationSecret}`);
 
-const options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Basic ${authString}`,
-  },
-  body: JSON.stringify({
-    "style": getInput('style'),
-    "observer": {
-        "latitude": getInputInt('latitude'),
-        "longitude": getInputInt('longitude'),
-        "date": "2023-29-05"
+const url = "https://api.astronomyapi.com/api/v2/studio/star-chart";
+function fetchData() {
+  const start = new Date();
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${authString}`,
     },
-    "view": {
-        "type": "area",
-        "parameters": {
-            "position": {
-                "equatorial": {
-                    "rightAscension": 0,
-                    "declination": 0
-                }
-            },
-            "zoom": getInputInt('zoom')
-        }
-    }
-    })
-};
-
-let route = `/api/v2/studio/star-chart`;
-
-const url = "https://api.astronomyapi.com" + route;
-const start = new Date();
-const data = fetch(url, options)
+    body: JSON.stringify({
+      "style": getInput('style'),
+      "observer": {
+          "latitude": getInputFloat('latitude'),
+          "longitude": getInputFloat('longitude'),
+          "date": "2023-05-29"
+      },
+      "view": {
+          "type": "area",
+          "parameters": {
+              "position": {
+                  "equatorial": {
+                      "rightAscension": 0,
+                      "declination": 0
+                  }
+              },
+              "zoom": getInputInt('zoom')
+          }
+      }
+      })
+  };
+  console.log('options', options.body)
+  fetch(url, options)
   .then((response) => response.json())
   .then((response) => {
     console.log(response);
@@ -46,10 +45,16 @@ const data = fetch(url, options)
   })
   .catch((err) => console.error(err));
 
-  function getInput(parameter) {
-    return document.getElementById(parameter).value;
-  }
-  
-  function getInputInt(parameter) {
-    return parseInt(document.getElementById(parameter).value);
-  }
+}
+
+function getInput(parameter) {
+  return document.getElementById(parameter).value;
+}
+
+function getInputInt(parameter) {
+  return parseInt(document.getElementById(parameter).value);
+}
+
+function getInputFloat(parameter) {
+  return parseFloat(document.getElementById(parameter).value);
+}
